@@ -13,8 +13,8 @@ namespace SimpleList
 
         }
         public int MaxNumber { get; set; }
-        
-
+        public bool Reverse { get; set; }
+        public bool EndPGM { get; set; }
         public void DisplayPrimeNumbers()
         {
             int wTemp = 0;
@@ -71,6 +71,11 @@ namespace SimpleList
                 Console.WriteLine();
                 Console.WriteLine($"There are {PrimeNumbers.Count} prime numbers");
                 Console.WriteLine();
+
+                if (Reverse == true)
+                {
+                    PrimeNumbers.Reverse();
+                }
 
                 do
                 {
