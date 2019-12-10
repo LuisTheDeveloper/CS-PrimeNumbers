@@ -11,6 +11,7 @@ public class SamplesArrayList
         IList<int> intList = new List<int>();
 
         var PrimeNumbers = new List<int>();
+        var NonPrimeNumbers = new List<int>();
 
         Console.WriteLine("Algorithm to find the Prime Numbers starting at 2");
         Console.WriteLine(" ");
@@ -27,14 +28,51 @@ public class SamplesArrayList
             //Let's add all the integers numbers to the List
             for (int i = 2; i <= MaxNumber; i++)
             {
-                for (int j = ++i; j < PrimeNumbers.Count; j++)
+                if (!PrimeNumbers.Contains(i) & !NonPrimeNumbers.Contains(i))
+                {
+                    PrimeNumbers.Add(i);
+                }  
+
+                for (int j = i; j <= MaxNumber; j++)
                 {
                     if (j % i != 0)
                     {
-                        PrimeNumbers.Add(j);
+                        if ((!NonPrimeNumbers.Contains(j) & !PrimeNumbers.Contains(j)))
+                        {
+                            PrimeNumbers.Add(j);
+                        }
+                        
+                    }
+                    else
+                    {
+                        if (PrimeNumbers.Contains(j) & j!=i)
+                        {
+                            PrimeNumbers.Remove(j);
+                            NonPrimeNumbers.Add(j);
+                        }
+                        else
+                        {
+                            if ((j % i == 0) & (j != i) & !NonPrimeNumbers.Contains(j))
+                            {
+                                NonPrimeNumbers.Add(j);
+                            }
+                        }
                     }
                 }
             }
+
+            Console.WriteLine();
+            Console.WriteLine(PrimeNumbers.Count);
+            Console.WriteLine();
+
+            do
+            {
+                Console.WriteLine(PrimeNumbers[wTemp]);
+                wTemp = ++wTemp;
+            }
+            while (wTemp < PrimeNumbers.Count);
+
+
         }
         //catch (FormatException)
         catch (SystemException e)
@@ -43,50 +81,6 @@ public class SamplesArrayList
             Console.WriteLine("User Input Invalid");
             Console.ReadLine();
         }
-
-        
-
-        /*
-        wTemp = (int)MaxNumber;
-
-        for (int i = 2; i <= MaxNumber; i++)
-        {
-            PrimeNumbers.Add(i);
-        }
-
-        wTemp = 0;
-        while (wTemp<PrimeNumbers.Count)
-        {
-            Console.Write($"{PrimeNumbers[wTemp]}");
-            wTemp++;
-            Console.Write("  ");
-        }
-
-        Console.WriteLine();
-
-        wTemp = 0;
-        for(int i=2; i<11;  i++)
-        {
-            for(int j=0; j<PrimeNumbers.Count; j++)
-            {   
-                if(PrimeNumbers[j] % i == 0 && PrimeNumbers[j] != i)
-                {
-                    PrimeNumbers.Remove(PrimeNumbers[j]);
-                }
-            }            
-
-        }
-
-        wTemp = 0;
-        while (wTemp < PrimeNumbers.Count)
-        {
-            Console.Write($"{PrimeNumbers[wTemp]}");
-            wTemp++;
-            Console.Write("  ");
-        }
-
-        */
-
 
     }
 
