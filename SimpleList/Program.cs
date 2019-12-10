@@ -8,8 +8,6 @@ namespace SimpleList
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Algorithm to find the Prime Numbers starting at 2");
-            Console.WriteLine(" ");
 
             PrimeNumbers objPN = new PrimeNumbers();
             objPN.Reverse = false;
@@ -18,6 +16,10 @@ namespace SimpleList
             while (objPN.EndPGM == false)
             {
                 Console.Clear();
+
+                Console.WriteLine("Algorithm to find the Prime Numbers starting at 2");
+                Console.WriteLine(" ");
+
                 Console.WriteLine("What is the maximum number?");
                 var UserNumber = Console.ReadLine();
 
