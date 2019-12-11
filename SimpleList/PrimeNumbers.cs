@@ -12,9 +12,11 @@ namespace SimpleList
         {
 
         }
+        public int MinNumber { get; set; }
         public int MaxNumber { get; set; }
         public bool Reverse { get; set; }
         public bool EndPGM { get; set; }
+        public bool Range { get; set; }
         public void DisplayPrimeNumbers()
         {
             int wTemp = 0;
@@ -27,6 +29,7 @@ namespace SimpleList
 
             try
             {
+
                 var MaxNum = MaxNumber;
 
                 Console.WriteLine($"Displaying Prime Numbers from 2 to {MaxNumber}");

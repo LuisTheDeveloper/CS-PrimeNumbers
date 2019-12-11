@@ -17,7 +17,7 @@ namespace SimpleList
             {
                 Console.Clear();
 
-                Console.WriteLine("Algorithm to find the Prime Numbers starting at 2");
+                Console.WriteLine("Algorithm to find the Prime Numbers");
                 Console.WriteLine(" ");
 
                 Console.WriteLine("What is the maximum number?");
@@ -31,17 +31,27 @@ namespace SimpleList
                     objPN.Reverse = true;
                 }
 
-                objPN.MaxNumber = Int32.Parse(UserNumber);
-                objPN.DisplayPrimeNumbers();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Do you want to exit? Y=Yes");
-                userOption = Console.ReadLine();
-
-                if (userOption == "Y" || userOption == "y")
+                try
                 {
-                    objPN.EndPGM = true;
+                    objPN.MaxNumber = Int32.Parse(UserNumber);
+                    objPN.DisplayPrimeNumbers();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine("Do you want to exit? Y=Yes");
+                    userOption = Console.ReadLine();
+
+                    if (userOption == "Y" || userOption == "y")
+                    {
+                        objPN.EndPGM = true;
+                    }
                 }
+                catch (SystemException e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("User Input Invalid");
+                    Console.ReadLine();
+                }
+                
             }
         }
     }
