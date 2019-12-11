@@ -18,6 +18,7 @@ namespace SimpleList
         public bool EndPGM { get; set; }
         public bool Range { get; set; }
 
+        public bool SpeedUp { get; set; }
         public bool ValidRange()
         {
             if (MinNumber > MaxNumber)
@@ -30,10 +31,7 @@ namespace SimpleList
         {
             int wTemp = 0;
 
-            IList<int> intList = new List<int>();
-
             var PrimeNumbers = new List<int>();
-            var NonPrimeNumbers = new List<int>();
 
             try
             {
@@ -42,75 +40,7 @@ namespace SimpleList
                     MinNumber = 2;
                 }
                 Console.WriteLine($"Displaying Prime Numbers from {MinNumber} to {MaxNumber}");
-
-                //Calculating 50% of the results
-                var w50Part = (MinNumber + MaxNumber) / 2;
-
-                //Calculating 25% and 75% of the results
-                var w1 = MinNumber - w50Part;
-                var w2 = Math.Abs(w1) / 2;
-                var w25Part = MinNumber + w2;
-                var w75Part = MaxNumber - w2;
-
-                var wDif = MaxNumber - MinNumber;
-
-                for (int i = MinNumber; i <= MaxNumber; i++)
-                {
-                    if (wDif > 1000)
-                    {
-                        if (i == w25Part)
-                        {
-                            Console.WriteLine();
-                            Console.WriteLine("25% of Prime Numbers are processed");
-                        }
-                        if (i == w50Part)
-                        {
-                            Console.WriteLine();
-                            Console.WriteLine("50% of Prime Numbers are processed");
-                        }
-                        if (i == w75Part)
-                        {
-                            Console.WriteLine();
-                            Console.WriteLine("75% of Prime Numbers are processed");
-                            Console.WriteLine();
-                        }
-                    }
-
-                    //Let's add all the integers numbers to the List
-                    if (!PrimeNumbers.Contains(i) & !NonPrimeNumbers.Contains(i))
-                    {
-                        PrimeNumbers.Add(i);
-                    }
-
-                    for (int j = i; j <= MaxNumber; j++)
-                    {
-                        if (j % i != 0)
-                        {
-                            if ((!NonPrimeNumbers.Contains(j) & !PrimeNumbers.Contains(j)))
-                            {
-                                PrimeNumbers.Add(j);
-                            }
-
-                        }
-                        else
-                        {
-                            if (PrimeNumbers.Contains(j) & j != i)
-                            {
-                                PrimeNumbers.Remove(j);
-                                NonPrimeNumbers.Add(j);
-                            }
-                            else
-                            {
-                                if ((j % i == 0) & (j != i) & !NonPrimeNumbers.Contains(j))
-                                {
-                                    NonPrimeNumbers.Add(j);
-                                }
-                            }
-                        }
-
-                    }
-                }
-
+                CalculatePrimeNumbers(PrimeNumbers);
                 Console.WriteLine();
                 Console.WriteLine($"There are {PrimeNumbers.Count} prime numbers");
                 Console.WriteLine();
@@ -127,8 +57,6 @@ namespace SimpleList
                     wTemp = ++wTemp;
                 }
                 while (wTemp < PrimeNumbers.Count);
-                
-
             }
             //catch (FormatException)
             catch (SystemException e)
@@ -138,5 +66,80 @@ namespace SimpleList
                 Console.ReadLine();
             }
         }
+
+        private void CalculatePrimeNumbers(List<int> MyNumbers)
+        {
+            var NonPrimeNumbers = new List<int>();
+
+            //Calculating 50% of the results
+            var w50Part = (MinNumber + MaxNumber) / 2;
+            //Calculating 25% and 75% of the results
+            var w1 = MinNumber - w50Part;
+            var w2 = Math.Abs(w1) / 2;
+            var w25Part = MinNumber + w2;
+            var w75Part = MaxNumber - w2;
+            var wDif = MaxNumber - MinNumber;
+
+            for (int i = MinNumber; i <= MaxNumber; i++)
+            {
+                if (SpeedUp == false & wDif > 1000)
+                {
+                    if (i == w25Part)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("25% of Prime Numbers are processed");
+                    }
+                    if (i == w50Part)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("50% of Prime Numbers are processed");
+                    }
+                    if (i == w75Part)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("75% of Prime Numbers are processed");
+                        Console.WriteLine();
+                    }
+                }
+
+                //Let's add all the integers numbers to the List
+                if (!MyNumbers.Contains(i) & !NonPrimeNumbers.Contains(i))
+                {
+                    MyNumbers.Add(i);
+                }
+
+                for (int j = i; j <= MaxNumber; j++)
+                {
+                    if (j % i != 0)
+                    {
+                        if ((!NonPrimeNumbers.Contains(j) & !MyNumbers.Contains(j)))
+                        {
+                            MyNumbers.Add(j);
+                        }
+
+                    }
+                    else
+                    {
+                        if (MyNumbers.Contains(j) & j != i)
+                        {
+                            MyNumbers.Remove(j);
+                            NonPrimeNumbers.Add(j);
+                        }
+                        else
+                        {
+                            if ((j % i == 0) & (j != i) & !NonPrimeNumbers.Contains(j))
+                            {
+                                NonPrimeNumbers.Add(j);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+
+
     }
 }
