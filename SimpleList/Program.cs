@@ -12,37 +12,71 @@ namespace SimpleList
             PrimeNumbers objPN = new PrimeNumbers();
             objPN.Reverse = false;
             objPN.EndPGM = false;
+            objPN.Range = false;
 
             while (objPN.EndPGM == false)
             {
                 Console.Clear();
 
                 Console.WriteLine("Algorithm to find the Prime Numbers");
+
                 Console.WriteLine(" ");
-
-                Console.WriteLine("What is the maximum number?");
-                var UserNumber = Console.ReadLine();
-
-                Console.WriteLine("Show the numbers in reverse order? Y=Yes");
+                Console.WriteLine("Do you want to define a range of numbers? Y=Yes");
                 var userOption = Console.ReadLine();
 
                 if (userOption == "Y" || userOption == "y")
                 {
-                    objPN.Reverse = true;
+                    objPN.Range = true;
+                    Console.WriteLine(" ");
+                    Console.WriteLine("What is the minimum number of your range?");
+                    var UserMinNumber = Console.ReadLine();
+                    try
+                    {
+                        objPN.MinNumber = Int32.Parse(UserMinNumber);
+                    }
+                    catch (SystemException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("User Input Invalid. No Range will be used.");
+                        Console.ReadLine();
+                    }
+
                 }
+
+                Console.WriteLine(" ");
+                Console.WriteLine("What is the maximum number?");
+                var UserNumber = Console.ReadLine();
 
                 try
                 {
                     objPN.MaxNumber = Int32.Parse(UserNumber);
-                    objPN.DisplayPrimeNumbers();
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine("Do you want to exit? Y=Yes");
-                    userOption = Console.ReadLine();
 
-                    if (userOption == "Y" || userOption == "y")
+                    if ((objPN.Range == true) & (objPN.ValidRange() == false))
                     {
-                        objPN.EndPGM = true;
+                        Console.WriteLine("Invalid Range! Try again.");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Show the numbers in reverse order? Y=Yes");
+                        userOption = Console.ReadLine();
+
+                        objPN.Reverse = false;
+                        if (userOption == "Y" || userOption == "y")
+                        {
+                            objPN.Reverse = true;
+                        }
+
+                        objPN.DisplayPrimeNumbers();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("Do you want to exit? Y=Yes");
+                        userOption = Console.ReadLine();
+
+                        if (userOption == "Y" || userOption == "y")
+                        {
+                            objPN.EndPGM = true;
+                        }
                     }
                 }
                 catch (SystemException e)
@@ -51,7 +85,6 @@ namespace SimpleList
                     Console.WriteLine("User Input Invalid");
                     Console.ReadLine();
                 }
-                
             }
         }
     }

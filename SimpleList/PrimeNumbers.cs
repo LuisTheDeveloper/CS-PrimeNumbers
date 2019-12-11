@@ -17,6 +17,15 @@ namespace SimpleList
         public bool Reverse { get; set; }
         public bool EndPGM { get; set; }
         public bool Range { get; set; }
+
+        public bool ValidRange()
+        {
+            if (MinNumber > MaxNumber)
+            {
+                return false;
+            }
+            return true;
+        }
         public void DisplayPrimeNumbers()
         {
             int wTemp = 0;
@@ -29,13 +38,14 @@ namespace SimpleList
 
             try
             {
-
-                var MaxNum = MaxNumber;
-
-                Console.WriteLine($"Displaying Prime Numbers from 2 to {MaxNumber}");
+                if (Range == false)
+                {
+                    MinNumber = 2;
+                }
+                Console.WriteLine($"Displaying Prime Numbers from {MinNumber} to {MaxNumber}");
 
                 //Let's add all the integers numbers to the List
-                for (int i = 2; i <= MaxNumber; i++)
+                for (int i = MinNumber; i <= MaxNumber; i++)
                 {
                     if (!PrimeNumbers.Contains(i) & !NonPrimeNumbers.Contains(i))
                     {
