@@ -67,6 +67,15 @@ namespace SimpleList
                             objPN.Reverse = true;
                         }
 
+                        Console.WriteLine("Do you want to use Speed format?");
+                        userOption = Console.ReadLine();
+
+                        objPN.SpeedUp = false;
+                        if (userOption == "Y" || userOption == "y")
+                        {
+                            objPN.SpeedUp = true;
+                        }
+
                         objPN.DisplayPrimeNumbers();
                         Console.WriteLine();
                         Console.WriteLine();
