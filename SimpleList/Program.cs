@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 
 namespace SimpleList
@@ -8,7 +9,7 @@ namespace SimpleList
     {
         public static void Main(string[] args)
         {
-
+           
             PrimeNumbers objPN = new PrimeNumbers();
             objPN.Reverse = false;
             objPN.EndPGM = false;
