@@ -62,7 +62,7 @@ namespace SimpleList
                         userOption = Console.ReadLine();
 
                         objPN.Reverse = false;
-                        if (userOption == "Y" || userOption == "y")
+                        if (userOption.ToLower() == "y" || userOption.ToLower() == "yes")
                         {
                             objPN.Reverse = true;
                         }
