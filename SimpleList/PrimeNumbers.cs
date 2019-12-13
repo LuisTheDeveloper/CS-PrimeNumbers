@@ -28,7 +28,6 @@ namespace SimpleList
         private int Last50Index { get; set; }
         private int Last75Index { get; set; }
         
-
         private bool AllDone { get; set; }
 
         public bool ValidRange()
@@ -43,6 +42,14 @@ namespace SimpleList
         {           
             var PrimeNumbers = new List<int>();
 
+            //Calculating 50% of the results
+            var w50Part = (MinNumber + MaxNumber) / 2;
+            //Calculating 25% and 75% of the results
+            var w1 = MinNumber - w50Part;
+            var w2 = Math.Abs(w1) / 2;
+            var w25Part = MinNumber + w2;
+            var w75Part = MaxNumber - w2;
+
             try
             {
                 if (Range == false)
@@ -54,14 +61,15 @@ namespace SimpleList
                 CalculatePrimeNumbers(PrimeNumbers);
                 Console.WriteLine();
 
-                if (SpeedUp == false)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine($"There are {PrimeNumbers.Count} prime numbers");
-                }
+                Console.WriteLine();
+                Console.WriteLine($"There are {PrimeNumbers.Count} prime numbers");
 
-                CalculatePrimeNumbers(PrimeNumbers);
+                //CalculatePrimeNumbers(PrimeNumbers);
                 LastIndex = GetLastIndex(PrimeNumbers, 0);
+                Last50Index = LastIndex / 2;
+                Last25Index = Last50Index / 2;
+                Last75Index = Last50Index + Last25Index;
+
                 if (Reverse == true)
                 {
                     PrimeNumbers.Reverse();
@@ -69,32 +77,37 @@ namespace SimpleList
 
                 if (SpeedUp == true)
                 {
-                    DisplayCurrentPrimes(PrimeNumbers, 0, PrimeNumbers.IndexOf(PrimeNumbers.Count));
+                    DisplayCurrentPrimes(PrimeNumbers, 0, 0);
                 }
                 else
                 {
+
                     Console.WriteLine();
                     Console.WriteLine("25% of Prime Numbers are processed");
                     Console.WriteLine();
                     DisplayCurrentPrimes(PrimeNumbers, 0, Last25Index);
+                    Console.WriteLine();
                     Thread.Sleep(3000);
 
                     Console.WriteLine();
                     Console.WriteLine("50% of Prime Numbers are processed");
                     Console.WriteLine();
                     DisplayCurrentPrimes(PrimeNumbers, Last25Index, Last50Index);
+                    Console.WriteLine();
                     Thread.Sleep(3000);
 
                     Console.WriteLine();
                     Console.WriteLine("75% of Prime Numbers are processed");
                     Console.WriteLine();
                     DisplayCurrentPrimes(PrimeNumbers, Last50Index, Last75Index);
+                    Console.WriteLine();
                     Thread.Sleep(3000);
 
                     Console.WriteLine();
                     Console.WriteLine("All of Prime Numbers are processed");
                     Console.WriteLine();
-                    DisplayCurrentPrimes(PrimeNumbers, 0, LastIndex);
+                    DisplayCurrentPrimes(PrimeNumbers, Last75Index, 0);
+                    Console.WriteLine();
                     Thread.Sleep(3000);
                 }
 
@@ -111,14 +124,6 @@ namespace SimpleList
         private void CalculatePrimeNumbers(List<int> MyNumbers)
         {
             var NonPrimeNumbers = new List<int>();
-
-            //Calculating 50% of the results
-            var w50Part = (MinNumber + MaxNumber) / 2;
-            //Calculating 25% and 75% of the results
-            var w1 = MinNumber - w50Part;
-            var w2 = Math.Abs(w1) / 2;
-            var w25Part = MinNumber + w2;
-            var w75Part = MaxNumber - w2;
 
             for (int i = MinNumber; i <= MaxNumber; i++)
             {
@@ -154,30 +159,6 @@ namespace SimpleList
                             }
                         }
                     }
-
-                    if (SpeedUp == false & AllDone == false)
-                    {
-                        if (j == w25Part)
-                        {
-                            Last25Index = GetLastIndex(MyNumbers, 0);
-                        }
-
-                        if (j == w50Part)
-                        {
-                            Last50Index = GetLastIndex(MyNumbers, Last25Index);
-                        }
-
-                        if (j == w75Part)
-                        {
-                            Last75Index = GetLastIndex(MyNumbers, Last50Index);
-                        }
-
-                        if (j == MaxNumber)
-                        {
-                            LastIndex = GetLastIndex(MyNumbers, Last75Index);
-                            AllDone = true;
-                        }
-                    }
                 }
             }
 
@@ -186,6 +167,10 @@ namespace SimpleList
         private void DisplayCurrentPrimes(List<int> MyNumbers, int StartPos, int EndPos)
         {
             int wTemp = StartPos;
+            if (EndPos == 0)
+            {
+                EndPos = MyNumbers.Count;
+            }
 
             do
             {
@@ -205,56 +190,9 @@ namespace SimpleList
                 wTemp = ++wTemp;
             }
             while (wTemp < MyNumbers.Count);
+            wTemp = --wTemp;
             return wTemp;
         }
-
-        /* private int PrimeNumbersShow(List<int> MyNumbers)
-        {
-            if (SpeedUp == false & AllDone == false)
-            {
-                if (j == w25Part)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("25% of Prime Numbers are processed");
-                    Console.WriteLine();
-                    DisplayCurrentPrimes(MyNumbers, 0);
-                    Thread.Sleep(3000);
-                }
-
-                if (j == w50Part)
-                {
-                    //var wpos1 = GetPartOfList(MyNumbers);
-                    Console.WriteLine();
-                    Console.WriteLine("50% of Prime Numbers are processed");
-                    Console.WriteLine();
-                    var wPos = MyNumbers.IndexOf(w25Part);
-                    DisplayCurrentPrimes(MyNumbers, LastIndex);
-                    Thread.Sleep(3000);
-                }
-
-                if (j == w75Part)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("75% of Prime Numbers are processed");
-                    Console.WriteLine();
-                    //var wPos = MyNumbers.IndexOf(w50Part);
-                    DisplayCurrentPrimes(MyNumbers, LastIndex);
-                    Thread.Sleep(3000);
-                }
-
-                if (j == MaxNumber)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("All Prime Numbers have been processed");
-                    Console.WriteLine();
-                    //var wPos = MyNumbers.IndexOf(w75Part);
-                    DisplayCurrentPrimes(MyNumbers, LastIndex);
-                    AllDone = true;
-                }
-            }
-
-            return 0;
-        }*/
 
     }
 }
