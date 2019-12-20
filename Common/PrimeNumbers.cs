@@ -125,42 +125,29 @@ namespace Common
         {
             var NonPrimeNumbers = new List<int>();
 
+            // Add all numbers into the list
             for (int i = MinNumber; i <= MaxNumber; i++)
             {
-
-                //Let's add all the integers numbers to the List
-                if (!MyNumbers.Contains(i) & !NonPrimeNumbers.Contains(i))
+                
+                for (int j = 2; j<i;j++)
                 {
-                    MyNumbers.Add(i);
-                }
-
-                for (int j = i; j <= MaxNumber; j++)
-                {
-                    if (j % i != 0)
+                    if((i%j)!=0 & !NonPrimeNumbers.Contains(i))
                     {
-                        if ((!NonPrimeNumbers.Contains(j) & !MyNumbers.Contains(j)))
-                        {
-                            MyNumbers.Add(j);
-                        }
+                        if (!MyNumbers.Contains(i))
+                            MyNumbers.Add(i);
 
                     }
                     else
                     {
-                        if (MyNumbers.Contains(j) & j != i)
-                        {
-                            MyNumbers.Remove(j);
-                            NonPrimeNumbers.Add(j);
-                        }
-                        else
-                        {
-                            if ((j % i == 0) & (j != i) & !NonPrimeNumbers.Contains(j))
-                            {
-                                NonPrimeNumbers.Add(j);
-                            }
-                        }
+                        if (MyNumbers.Contains(i))
+                            MyNumbers.Remove(i);
+                        NonPrimeNumbers.Add(i);
+                        break;
                     }
+                        
                 }
             }
+
 
         }
 
