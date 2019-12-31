@@ -87,28 +87,28 @@ namespace Common
                     Console.WriteLine();
                     DisplayCurrentPrimes(PrimeNumbers, 0, Last25Index);
                     Console.WriteLine();
-                    Thread.Sleep(3000);
+                    Thread.Sleep(2000);
 
                     Console.WriteLine();
                     Console.WriteLine("50% of Prime Numbers are processed");
                     Console.WriteLine();
                     DisplayCurrentPrimes(PrimeNumbers, Last25Index, Last50Index);
                     Console.WriteLine();
-                    Thread.Sleep(3000);
+                    Thread.Sleep(2000);
 
                     Console.WriteLine();
                     Console.WriteLine("75% of Prime Numbers are processed");
                     Console.WriteLine();
                     DisplayCurrentPrimes(PrimeNumbers, Last50Index, Last75Index);
                     Console.WriteLine();
-                    Thread.Sleep(3000);
+                    Thread.Sleep(2000);
 
                     Console.WriteLine();
                     Console.WriteLine("All of Prime Numbers are processed");
                     Console.WriteLine();
                     DisplayCurrentPrimes(PrimeNumbers, Last75Index, 0);
                     Console.WriteLine();
-                    Thread.Sleep(3000);
+                    Thread.Sleep(2000);
                 }
 
             }
@@ -124,7 +124,15 @@ namespace Common
         private void CalculatePrimeNumbers(List<int> MyNumbers)
         {
             var NonPrimeNumbers = new List<int>();
+            int x25, x50, x75;
 
+            x50 = MaxNumber / MinNumber;
+            x25 = x50 / 2;
+            x75 = x50 + x25;
+
+            Console.WriteLine($"x25 is {x25}", x25);
+            Console.WriteLine($"x50 is {x50}", x50);
+            Console.WriteLine($"x75 is {x75}", x75);
 
             for (int i = MinNumber; i <= MaxNumber; i++)
             {                
