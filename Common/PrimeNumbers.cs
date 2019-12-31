@@ -125,10 +125,9 @@ namespace Common
         {
             var NonPrimeNumbers = new List<int>();
 
-            // Add all numbers into the list
+
             for (int i = MinNumber; i <= MaxNumber; i++)
-            {
-                
+            {                
                 for (int j = 2; j<i;j++)
                 {
                     if((i%j)!=0 & !NonPrimeNumbers.Contains(i))
